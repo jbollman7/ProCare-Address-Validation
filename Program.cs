@@ -13,10 +13,7 @@ namespace Procare.AddressValidation.Tester
     {
         private static async Task Main()
         {
-            //BusinessLogic logic = new BusinessLogic();
 
-            //int result = logic.MethodA(10, 20);
-            //Console.WriteLine("Result: " + result);
             Uri addressValidationBaseUrl = new Uri("https://addresses.dev-procarepay.com");
 
             using HttpClientFactory factory = new HttpClientFactory();
@@ -25,7 +22,6 @@ namespace Procare.AddressValidation.Tester
             // var request = new AddressValidationRequest { Line1 = "1 W Main", City = "Medford", StateCode = "OR", ZipCodeLeading5 = "97501" };
             // var request = new AddressValidationRequest();
             var request = new AddressValidationRequest { Line1 = "1125 17th St Ste 1800", City = "Denver", StateCode = "CO", ZipCodeLeading5 = "80202" };
-
             var response = await addressService.GetAddressesAsync(request).ConfigureAwait(false);
             Console.WriteLine(response);
         }
