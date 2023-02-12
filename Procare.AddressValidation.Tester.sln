@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Procare.AddressValidation.Tester", "Procare.AddressValidation.Tester.csproj", "{9B3C00A8-E2BC-45C0-8178-F647995F96BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcareAddressValidation.Tests", "ProcareAddressValidation.Tests\ProcareAddressValidation.Tests.csproj", "{004080B5-01AE-4F62-BBF0-6EBD2B561917}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Procare.AddressValidation.Tester.Tests", "..\Procare.AddressValidation.Tester.Tests\Procare.AddressValidation.Tester.Tests.csproj", "{8BAAB1AC-A707-4E58-BEDF-F737DC8AFC95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{9B3C00A8-E2BC-45C0-8178-F647995F96BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B3C00A8-E2BC-45C0-8178-F647995F96BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B3C00A8-E2BC-45C0-8178-F647995F96BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{004080B5-01AE-4F62-BBF0-6EBD2B561917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{004080B5-01AE-4F62-BBF0-6EBD2B561917}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{004080B5-01AE-4F62-BBF0-6EBD2B561917}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{004080B5-01AE-4F62-BBF0-6EBD2B561917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BAAB1AC-A707-4E58-BEDF-F737DC8AFC95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BAAB1AC-A707-4E58-BEDF-F737DC8AFC95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BAAB1AC-A707-4E58-BEDF-F737DC8AFC95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BAAB1AC-A707-4E58-BEDF-F737DC8AFC95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
