@@ -13,11 +13,10 @@ namespace Procare.AddressValidation.Tester
     {
         private static async Task Main()
         {
-
             Uri addressValidationBaseUrl = new Uri("https://addresses.dev-procarepay.com");
 
             using HttpClientFactory factory = new HttpClientFactory();
-            using AddressValidationService addressService = new AddressValidationService(factory, false, addressValidationBaseUrl, 3);
+            using AddressValidationService addressService = new AddressValidationService(factory, false, addressValidationBaseUrl);
 
             // var request = new AddressValidationRequest { Line1 = "1 W Main", City = "Medford", StateCode = "OR", ZipCodeLeading5 = "97501" };
             // var request = new AddressValidationRequest();

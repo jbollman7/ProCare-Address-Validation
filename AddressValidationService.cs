@@ -13,19 +13,17 @@ namespace Procare.AddressValidation.Tester
 
     public class AddressValidationService : BaseHttpService
     {
-
-        public int Retries { get; set; }
-
-        public AddressValidationService(IHttpClientFactory httpClientFactory, bool disposeFactory, Uri baseUrl, int retries)
+        public AddressValidationService(IHttpClientFactory httpClientFactory, bool disposeFactory, Uri baseUrl)
             : this(httpClientFactory, disposeFactory, baseUrl, null, false)
         {
-            this.Retries = retries;
         }
 
         protected AddressValidationService(IHttpClientFactory httpClientFactory, bool disposeFactory, Uri baseUrl, HttpMessageHandler? httpMessageHandler, bool disposeHandler)
             : base(httpClientFactory, disposeFactory, baseUrl, httpMessageHandler, disposeHandler)
         {
         }
+
+        public int Retries { get; private set; } = 3;
 
         public async Task<string> GetAddressesAsync(AddressValidationRequest request, CancellationToken token = default)
         {
@@ -34,6 +32,7 @@ namespace Procare.AddressValidation.Tester
                 using var httpRequest = request.ToHttpRequest(this.BaseUrl);
                 using var cts = new CancellationTokenSource();
                 cts.CancelAfter(TimeSpan.FromMilliseconds(700));
+                token = cts.Token;
                 try
                 {
                     using var response = await this.CreateClient().SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
@@ -41,14 +40,15 @@ namespace Procare.AddressValidation.Tester
                     {
                         return await response.Content.ReadAsStringAsync(token).ConfigureAwait(false);
                     }
-                    else if (response.StatusCode == HttpStatusCode.InternalServerError)
+
+                    if ((int)response.StatusCode >= 500 && (int)response.StatusCode < 600)
                     {
                         this.Retries--;
                         await this.GetAddressesAsync(request, token).ConfigureAwait(false);
                     }
                     else if (!response.IsSuccessStatusCode)
                     {
-                         throw new HttpRequestException("Request timed out: Please check your network connection and try again later.");
+                        throw new HttpRequestException("Request timed out: Please check your network connection and try again later.");
                     }
                 }
                 catch (OperationCanceledException)
@@ -57,7 +57,8 @@ namespace Procare.AddressValidation.Tester
                     await this.GetAddressesAsync(request, token).ConfigureAwait(false);
                 }
             }
-            throw new Exception("Unfortunately, after multiple attempts, the API request has failed. Please check your network connection and try again later.\r\n" +
+
+            throw new InvalidOperationException("Unfortunately, after multiple attempts, the API request has failed. Please check your network connection and try again later.\r\n" +
                                 " If the issue persists, kindly contact support with the following error code:[500]. \r\nThis will help us investigate the issue" +
                                 " and resolve it as soon as possible.");
         }
